@@ -1,0 +1,30 @@
+﻿@model IEnumerable<KeyValuePair<string, string>>
+
+@using (@Ajax.BeginForm("Index", 
+    new AjaxOptions { 
+    HttpMethod = "POST",
+    UpdateTargetId = "calculations-container",
+    InsertionMode = InsertionMode.Replace
+    }))
+{
+    <div>
+        @Html.Label("Quantity", "Quantity")
+        @Html.TextBox("Quantity",null, new { autocomplete = "off" })
+    </div>
+    <div>
+        @Html.Label("Measure", "Measure")
+        @Html.DropDownList("Measure", (IEnumerable<SelectListItem>)ViewBag.MeasuresDropDown)
+    </div>
+    <div>
+        @Html.Label("Kilo", "Kilo")
+        @Html.DropDownList("kilo", new List<SelectListItem> {
+    new SelectListItem{Text="1024", Value="1024"},
+    new SelectListItem{Text="1000", Value="1000"}})
+    </div>
+    <input id="btn-submit" type="submit" value="Calculate" />
+}
+<div id="calculations-container">
+
+@Html.Partial("_CalculationResults", Model)
+</div>
+
